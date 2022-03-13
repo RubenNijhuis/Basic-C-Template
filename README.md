@@ -4,10 +4,8 @@
 ## Structure
 ```
 /- Basic-C-Template
-    /- Assets
+    /- assets
         # Any assets like images or text files can be put here
-    /- bin
-        # output binaries are put here and not committed
     /- include
         # files like .a or .h can be put here
     /- libs
@@ -21,7 +19,7 @@
 ```
 
 ## Used by projects like
-Pipex - https://github.com/RubenNijhuis/Pipex
-Philosophers - https://github.com/RubenNijhuis/Philosophers
-So Long - https://github.com/RubenNijhuis/So-Long
-Push Swap - https://github.com/RubenNijhuis/Push-Swap
+Pipex - https://github.com/RubenNijhuis/Pipex <br>
+Philosophers - https://github.com/RubenNijhuis/Philosophers <br>
+So Long - https://github.com/RubenNijhuis/So-Long <br>
+Push Swap - https://github.com/RubenNijhuis/Push-Swap <br>

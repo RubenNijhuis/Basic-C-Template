@@ -3,48 +3,87 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: rubennijhuis <rubennijhuis@student.coda      +#+                      #
+#    By: rnijhuis <rnijhuis@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2022/01/24 19:46:54 by rubennijhui   #+#    #+#                  #
-#    Updated: 2022/01/24 20:05:18 by rubennijhui   ########   odam.nl          #
+#    Created: 2022/03/12 11:05:57 by rnijhuis      #+#    #+#                  #
+#    Updated: 2022/03/13 16:48:06 by rubennijhui   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := pipex
-INCLUDE_DIR := ./include
-SRC_DIR := ./src
-BIN_DIR := ./bin
-LIB_DIR := ./libs
+#=====================================#
+#========= General variables =========#
+#=====================================#
 
-SRCS := main.c test/get_path_to_binary.c
+NAME := example
+INCLUDE_DIR := include
+SRC_DIR := src
+LIBS_DIR := libs
+OBJS_DIR := objs
+PROGRAM_LOCATION := $(BIN_DIR)/$(NAME)
 
-INCLUDES := $(INCLUDE_DIR)libft.a\
+#=====================================#
+#============ Input files ============#
+#=====================================#
 
-SRCS_PREFIX = $(addsuffix $(SRCS), $(dir $(SRC_DIR)/))
-INCLUDES_PREFIX = $(addsuffix $(INCLUDE_DIR), $(dir $(INCLUDES)))
+LIBS := $(LIBS_DIR)/LibFT/libft.a \
+		# $(LIBS_DIR)/Get-Next-Line/get-next-line.a \
+		# $(LIBS_DIR)/PrintFT/printft.a \
+
+LIBS_HEADERS := -I $(LIBS_DIR)/LibFT/include/ \
+				# -I $(LIBS_DIR)/Get-Next-Line/include/ \
+				# -I $(LIBS_DIR)/PrintFT/include/ \
+
+INC := -I $(INCLUDE_DIR) $(LIBS_HEADERS)
+
+SRCS := main.c
+
+OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
+
+#=====================================#
+#========= Command arguments =========#
+#=====================================#
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-COMPILE = $(CC) $(CFLAGS)
+CFLAGS = -Wall -Werror -Wextra -g $(INC)
+LDFLAGS =
 
-TEST_COMMAND = 
+#=====================================#
+#=============== Rules ===============#
+#=====================================#
 
-$(NAME):$(OBJS) $(INCLUDE_DIR)/$(NAME).h
-	$(COMPILE) $(SRCS_PREFIX) -L $(INCLUDE_DIR)/ -lft -o $(NAME)
+objs/%.o:src/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) -c $(CFLAGS) -o $@ $^
+	@echo "🔨 Compiling: $^"
+	
+all: $(NAME)
 
-run:
-	$(BIN_DIR)/$(NAME) $(TEST_COMMAND)
+$(NAME):$(OBJS) $(LIBS)
+	@$(CC) $(OBJS) $(LDFLAGS) $(LIBS) -o $(NAME)
+	@echo "✅ Built $(NAME)"
 
-all: libft $(NAME)
+$(LIBS_DIR)/LibFT/libft.a:
+	@make -C $(LIBS_DIR)/LibFT
+
+$(LIBS_DIR)/Get-Next-Line/get_next_line.a:
+	@make -C $(LIBS_DIR)/Get-Next-Line
+
+submodules:
+	@git submodule update --init --recursive
+	@cd $(LIBS_DIR)/LibFt/ && git pull
+	@cd $(LIBS_DIR)/Get-Next-Line/ && git pull
+
+run: $(NAME)
+	./$(NAME)
 
 clean:
-	rm -rf $(OBJS)
-	echo "🧹 Removing object files"
+	@make clean -C $(LIBS_DIR)/Get-Next-Line
+	@rm -rf $(OBJS_DIR)
 
 fclean: clean
-	rm -rf $(BIN_DIR)/$(NAME)
-	echo "🧹 Removing $(NAME) executable"
+	@make fclean -C $(LIBS_DIR)/Get-Next-Line
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: run all clean fclean re
+.PHONY: all re run clean fclean
