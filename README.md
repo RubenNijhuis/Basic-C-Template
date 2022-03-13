@@ -9,7 +9,7 @@ $ make run
 
 Et voila, a main.c outputting a welcome message
 
-Some of the next steps could be changing the name of the project. Which you can do in the `General Variables` section of the Makefile
+Some of the next steps could be changing the name of the project. Which you can do in the `General Variables` section of the Makefile.
 
 ## Notes
 

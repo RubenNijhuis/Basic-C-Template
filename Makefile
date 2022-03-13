@@ -6,7 +6,7 @@
 #    By: rnijhuis <rnijhuis@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/03/12 11:05:57 by rnijhuis      #+#    #+#                  #
-#    Updated: 2022/03/13 17:05:45 by rubennijhui   ########   odam.nl          #
+#    Updated: 2022/03/13 18:08:35 by rubennijhui   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ LIBS_HEADERS := -I $(LIBS_DIR)/LibFT/include/ \
 
 INC := -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
-SRCS := main.c
+SRCS := main.c \
+		test.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
