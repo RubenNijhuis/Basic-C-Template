@@ -6,7 +6,7 @@
 #    By: rnijhuis <rnijhuis@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/03/12 11:05:57 by rnijhuis      #+#    #+#                  #
-#    Updated: 2022/03/13 18:08:35 by rubennijhui   ########   odam.nl          #
+#    Updated: 2022/03/13 20:33:34 by rubennijhui   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,9 +82,6 @@ run: $(NAME)
 	./$(NAME)
 
 clean:
-	@make clean -C $(LIBS_DIR)/Get-Next-Line
-	@make clean -C $(LIBS_DIR)/PrintFT
-	@make clean -C $(LIBS_DIR)/LibFT
 	@rm -rf $(OBJS_DIR)
 
 fclean: clean
