@@ -1,4 +1,12 @@
+# MacOS speficic
 .DS_Store
+
+# Compilation output
 *.o
 *.a
 *.out
+/objects
+/objs
+
+# Visual Studio Code
+.vscode/
