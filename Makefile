@@ -6,7 +6,7 @@
 #    By: rubennijhuis <rubennijhuis@student.coda      +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/24 20:14:42 by rubennijhui   #+#    #+#                  #
-#    Updated: 2022/05/01 23:22:10 by rubennijhui   ########   odam.nl          #
+#    Updated: 2022/06/28 13:30:35 by rubennijhui   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,11 @@ TEST_DIR := test
 #=====================================#
 
 LIBS := $(LIBS_DIR)/LibFT/libft.a \
+		$(LIBS_DIR)/Get-Next-Line/get-next-line.a \
 
 LIBS_HEADERS := -I $(INCLUDE_DIR) \
 				-I $(LIBS_DIR)/LibFT/include/ \
+				-I $(LIBS_DIR)/Get-Next-Line/include/ \
 
 INC := $(LIBS_HEADERS)
 
@@ -78,6 +80,7 @@ re: fclean all
 submodules:
 	@git submodule update --init --recursive
 	@cd $(LIBS_DIR)/LibFt/ && git pull origin main
+	@cd $(LIBS_DIR)/Get-Next-Line/ && git pull origin main
 	
 run: $(NAME)
 	@./$(NAME) $(INPUT_FILE)
@@ -99,6 +102,9 @@ norm:
 
 $(LIBS_DIR)/LibFT/libft.a:
 	@make -C $(LIBS_DIR)/LibFT
+
+$(LIBS_DIR)/Get-Next-Line/get-next-line.a:
+	@make -C $(LIBS_DIR)/Get-Next-Line
 
 #=====================================#
 #================ Misc ===============#
